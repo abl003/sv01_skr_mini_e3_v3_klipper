@@ -1,0 +1,17 @@
+M140 S[first_layer_bed_temperature]       ; Start heating bed
+M104 S[first_layer_temperature]           ; Start heating hotend
+M190 S[first_layer_bed_temperature]       ; Wait for bed temp
+M109 S[first_layer_temperature]           ; Wait for hotend temp
+
+G28                                       ; Home all axes
+BED_MESH_PROFILE LOAD=default             ; Load saved bed mesh
+
+G92 E0                                    ; Reset extruder position
+G1 Z2.0 F3000                             ; Lift head
+G1 X5 Y20 F3000                           ; Move to prime line start
+G1 Z0.3 F1000                             ; Lower to bed
+
+G1 X5 Y200.0 Z0.3 F1500.0 E15             ; Prime line
+G1 X5.4 Y20 Z0.3 F1500.0 E30              ; Second line
+G92 E0                                    ; Reset extruder again
+G1 Z1.0 F3000                             ; Raise nozzle slightly
